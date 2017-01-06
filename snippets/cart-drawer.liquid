@@ -1,0 +1,24 @@
+<div id="cart-drawer" class="cart-drawer">
+    <div class="cart-drawer__header">
+        <h3>Shopping Cart</h3>
+        <button class="cart-drawer__close">&times;</button>
+    </div>
+    <div class="cart-drawer__items">
+        {% for item in cart.items %}
+            <div class="cart-drawer__item" data-line="{{ forloop.index }}">
+                <img src="{{ item.image | img_url: 'small' }}" alt="{{ item.product.title }}">
+                <div class="cart-drawer__details">
+                    <p>{{ item.product.title }}</p>
+                    <p>{{ item.variant.title }}</p>
+                    <p>{{ item.price | money }}</p>
+                    <input type="number" min="1" class="cart-drawer__quantity" value="{{ item.quantity }}" data-line="{{ forloop.index }}">
+                    <button class="cart-drawer__remove" data-line="{{ forloop.index }}">Remove</button>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="cart-drawer__footer">
+        <p>Total: {{ cart.total_price | money }}</p>
+        <a href="/checkout" class="cart-drawer__checkout-btn">Checkout</a>
+    </div>
+</div>
